@@ -97,21 +97,26 @@ public class MainActivity extends AppCompatActivity {
     class OnClick implements View.OnClickListener{
         @Override
         public void onClick(View p1){
-            
+            ////Animation quand on clique sur le Button////
             final Animation anim = AnimationUtils.loadAnimation(MainActivity.this,R.anim.btn_click);
             p1.startAnimation(anim);
-            
+            ///Recupératon du texte dans le formulaire recherche
             String query = editText_query.getText().toString();
             if(TextUtils.isEmpty(query)){
+                ////Si vide
                 editText_query.setError("Vide");
             }
             else{
                 if(query.indexOf("/") != -1 || query.indexOf("&") != -1){
+                    ////Si on y trouve "/" ou "&"
                     editText_query.setError("Ville invalide");
                 }
                 else{
+                ////Affichage du dialog progression pendant la rechercher////
                 dialog = ProgressDialog.show(MainActivity.this, "", "Recherche...", true);
+                ////initialisation de la Library Volley
                 volleyInstance = new VolleyInstance(MainActivity.this);
+                ///Envoie du données.
                 volleyInstance.sendAndRequestResponse(query, dialog);     
                 }
             }
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+            ///Passe à l'ecran 2 avec id de la ville
             Intent intent = new Intent(MainActivity.this, ResultatActivity.class);
             intent.putExtra("id", id_ville[position]);
             startActivity(intent);
