@@ -10,7 +10,6 @@ public class local_db extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "meteo.db";
-
     public static final String TABLE_NAME = "liste_ville";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NOM = "nom_ville";
@@ -32,7 +31,7 @@ public class local_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        ////CREATION DE LA TABLE///
         String SQL_CREATE = "CREATE TABLE " + TABLE_NAME +
             " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_NOM + " TEXT, " +
@@ -50,15 +49,11 @@ public class local_db extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         String SQL_DELETE = "DROP TABLE IF EXISTS " + TABLE_NAME;
-
         db.execSQL(SQL_DELETE);
         onCreate(db);
-
-
     }
-
+    ////Ajout des données par le Model VilleModel
     public long insertData(VilleModel ville) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -73,7 +68,7 @@ public class local_db extends SQLiteOpenHelper {
         values.put(COLUMN_HEURE, ville.getHeure());
         return db.insert(TABLE_NAME, null, values);
     }
-    
+    ///Récuperation des données par id
     public VilleModel getDataById(String id){
         VilleModel v_model = new VilleModel();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -91,6 +86,7 @@ public class local_db extends SQLiteOpenHelper {
         v_model.setHeure(c.getString(9));
         return v_model;
     }
+    ///Récuperation de la dernière id
     public String getLastId(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY "+COLUMN_ID+" DESC LIMIT 1";
@@ -98,19 +94,19 @@ public class local_db extends SQLiteOpenHelper {
         cursor.moveToFirst();
         return cursor.getString(0);
     }
-    
+    /////Supprimer par ID
     public long deleteData(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, "ID = ?", new String[]{id});
     }
-
+    ///Récupation de données avec le limite 10
     public Cursor readData() {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME+ " ORDER BY "+COLUMN_ID+" DESC LIMIT 10";
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
-
+    ///Tous supprimer
     public void deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
