@@ -4,6 +4,7 @@ import java.util.Date;
 import android.icu.text.SimpleDateFormat;
 import java.util.Locale;
 
+/*DATE MAINTENANT*/
 public class DateNow
 {  
    private Date c;
