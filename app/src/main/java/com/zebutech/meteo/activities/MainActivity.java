@@ -46,18 +46,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);      
+        setContentView(R.layout.activity_main);  
+        ////initialisation des objets View (XML) ///
         initView();
+        ////Ajouter les données dans un ListView///
         setData();
       }
     
      
     
     private void initView(){
+        ///ListView pour l'histotique/////
         resultat = findViewById(R.id.resultat);
+        ///EditText Recherche...//////
         editText_query = findViewById(R.id.editText_query);
+        ///Button rechecher avec icon//////
         btn_search = findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new OnClick());
+        ///ImageView Logo///
         logo = findViewById(R.id.img_logo);
         image = findViewById(R.id.img_logo);
     }
