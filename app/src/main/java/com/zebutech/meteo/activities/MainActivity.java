@@ -70,16 +70,25 @@ public class MainActivity extends AppCompatActivity {
     
    
     private void setData(){  
+        ///Initialisation du base de données Local///
         db = new local_db(MainActivity.this);
+        ///Recuperation de données (Historique Ville)///
         Cursor c = db.readData();
+        ///Initialisation du données par nom///
         listVille = new String[c.getCount()];
+        ///Initialisation du données par id///
         id_ville = new String[c.getCount()];
+        ///Initialisation du données par date et heure///
         heure_date = new String[c.getCount()];
         while(c.moveToNext()){
+            ///Recuperation des données par nom
             listVille[c.getPosition()] = c.getString(1);
+            ///Recuperation des données par id
             id_ville[c.getPosition()] = c.getString(0);
+            ///Recuperation des données par date et heure
             heure_date[c.getPosition()] = c.getString(9)+" "+new DateNow().setFormat(c.getString(8));
         }
+        ///Ajout de toutes les données recuperées dans un listView
         VilleListAdapter adapter = new VilleListAdapter(MainActivity.this, listVille, heure_date); 
         resultat.setAdapter(adapter); 
         resultat.setOnItemClickListener(new OnClickItemAdapter()); 
