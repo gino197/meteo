@@ -9,6 +9,7 @@ public class VilleModel
     private String icon = "";
     private String date = "";
     private String heure = "";
+    ///*BONUS*////
     private String lon = "";
     private String lat = "";
 
