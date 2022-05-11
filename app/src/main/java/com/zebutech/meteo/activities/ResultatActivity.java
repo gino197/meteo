@@ -33,23 +33,36 @@ public class ResultatActivity extends AppCompatActivity{
     }
     private void initData(){
         db = new local_db(ResultatActivity.this);
-        id = getIntent().getExtras().getString("id");     
+        id = getIntent().getExtras().getString("id");    
+        ///Récuperation de la ville par ID 
         ville = db.getDataById(id);
     }
     private void initView(){
+        ////Initialisation de chaque TextView
+        ///Meteo
         txtMeteo = get(R.id.txtMeteo);
+        ///Temperature
         txtTemp = get(R.id.txtTemp);
+        ///Vitesse du vent
         txtVitesse = get(R.id.txtVitesse);
+        ///Longitude
         txtLon = get(R.id.txtLon);
+        ///Latitude
         txtLat = get(R.id.txtLat);
+        ///DATE
         txtDate = get(R.id.txtDate);
+        ///Heure
         txtHeure = get(R.id.txtHeure);
+        ///Ville
         txtVille = get(R.id.txtVille);
+        ///Button retour
         btn_retour = findViewById(R.id.btn_retour);
         btn_retour.setOnClickListener(new OnClick());
+        ///ICON METEO
         icon = findViewById(R.id.icon);
     }
     private void setData(){
+        ///Récuperation des données depuis la base de données local
         txtMeteo.setText(ville.getMeteo());
         txtTemp.setText(ville.getTemp());
         txtVitesse.setText("Vitesse du vent: "+ville.getVitesse());
@@ -68,6 +81,7 @@ public class ResultatActivity extends AppCompatActivity{
         public void onClick(View p1){
             final Animation anim = AnimationUtils.loadAnimation(ResultatActivity.this,R.anim.btn_click);
             p1.startAnimation(anim);
+            ///Retour à l'ecran 1
             BackToMain();
         } 
     }
@@ -78,6 +92,7 @@ public class ResultatActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed(){
+        ///Retour à l'ecran 1
         BackToMain();
     }  
 }
