@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Météo</string>
+    <string name="api_url">https://api.openweathermap.org/data/2.5/weather?q=</string>
+    <string name="appid">f5fd074d5ad387023295a380f32851ba</string>
+    <string name="img_url">http://openweathermap.org/img/w/</string>
+
+</resources>
