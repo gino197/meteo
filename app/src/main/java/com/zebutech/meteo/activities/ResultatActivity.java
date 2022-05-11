@@ -26,6 +26,7 @@ public class ResultatActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat);
+        ///initialsation et Configuration des données
         initData();
         initView();
         setData();
