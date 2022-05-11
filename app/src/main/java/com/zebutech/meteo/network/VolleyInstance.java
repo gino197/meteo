@@ -19,12 +19,17 @@ import android.content.Intent;
 import com.zebutech.meteo.activities.ResultatActivity;
 import android.app.ProgressDialog;
 import com.zebutech.meteo.R;
+/**
 
+    RECUPERATION DES DONNEES DEPUIS UN URL ET
+    INSERTION DANS UN BASE DE DONNEES LOCALE
+
+ */
 public class VolleyInstance
 {
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private String url = "http://localhost:8080/weather.php";
+    private String url = "";
     private Context context;
     private String TAG = "VolleyRequest";
     private local_db db;
@@ -32,6 +37,7 @@ public class VolleyInstance
     
     public VolleyInstance(Context ctx){
         this.context = ctx;
+        ///initialisation du DB
         this.db = new local_db(context);
     }
     
@@ -56,12 +62,14 @@ public class VolleyInstance
                         ville.setLatitude(getData("lat",response));
                         ville.setDate(new DateNow().getDate());
                         ville.setHeure(new DateNow().getHeure());
+                        ///insertion de toutes les données récuperées dans une base de données
                         long insert = db.insertData(ville);
                         if(insert == -1){
                             Toast.makeText(context, "Erreur d'insertion..", Toast.LENGTH_LONG).show();                    
                         }
                         else{
                             dialog.hide();
+                            ///passe à l'ecran 2
                             Intent intent = new Intent(context, ResultatActivity.class);
                             intent.putExtra("id", db.getLastId());
                             context.startActivity(intent);
@@ -70,6 +78,7 @@ public class VolleyInstance
                         }
                     }
                     else{
+                        ///si la ville est introuvable
                         new DialogAlert(context, "Ville introuvable", "Vérifiez bien le nom de la ville!");                      
                     }
                 }
@@ -78,9 +87,11 @@ public class VolleyInstance
                 public void onErrorResponse(VolleyError error) {
                     dialog.hide();
                     if(error.toString().indexOf("ServerError") != -1){
+                        ///si la ville est introuvable
                         new DialogAlert(context, "Ville introuvable", "Vérifiez bien le nom de la ville!");      
                     }
                     else{
+                        ///si le serveur est introuvable
                         new DialogAlert(context, "Connexion perdue", "Vérifiez votre connextion internet!");     
                     }          
                     Log.i(TAG,"Error :" + error.toString());
@@ -90,10 +101,12 @@ public class VolleyInstance
         mRequestQueue.add(mStringRequest);
     }
     public String getData(String cles, String data_get){
+        ///Récuperation du donnée par cles dans le fichier JSON
         String data = "";
         int pos = data_get.indexOf("\""+cles+"\"");
         pos = pos+cles.length()+2;
         data = data_get.substring(pos, data_get.length()-1);
+        ///Configuration du format de données
         data = data.substring(1, data.indexOf(","));
         data = data.replace("\"","");
         data = data.replace("}","");
