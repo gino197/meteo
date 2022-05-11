@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import java.io.InputStream;
-
+/************
+Appelé automatique quand il y a une erreur.
+*/
 
 public class DebugActivity extends Activity {
 

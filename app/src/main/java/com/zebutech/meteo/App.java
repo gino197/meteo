@@ -21,13 +21,10 @@ public class App extends Application{
 
 				PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 11111, intent, PendingIntent.FLAG_ONE_SHOT);
 
-
 				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 				am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, pendingIntent);
-
 				android.os.Process.killProcess(android.os.Process.myPid());
 				System.exit(2);
-
 				uncaughtExceptionHandler.uncaughtException(thread, ex);
 			}
 		});
