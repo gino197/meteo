@@ -14,12 +14,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import java.io.InputStream;
-
+/*
+    RECUPERATION D'IMAGE DEPUIS UN URL POUR
+    AFFICHER DANS UNE IMAGEVIEW
+ */
 public class ImageFromUrl extends AsyncTask
 {
     private String url;
     private ImageView img;
     public ImageFromUrl(String new_url, ImageView wv){
+        ///initialisation d'url et imageView///
         this.url = new_url;
         this.img = wv;
     }
@@ -29,9 +33,9 @@ public class ImageFromUrl extends AsyncTask
         String imageURL = url;
         Bitmap bitmap = null;
         try {
-            // Download Image from URL
+            ///Téléchargement d'image depuis l'URL
             InputStream input = new java.net.URL(imageURL).openStream();
-            // Decode Bitmap
+            ///Décode en Bitmap
             bitmap = BitmapFactory.decodeStream(input);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,22 +50,10 @@ public class ImageFromUrl extends AsyncTask
     protected void onPreExecute() {
         super.onPreExecute();
     }
-    protected Bitmap doInBackground(String... URL) {
-        String imageURL = URL[0];
-        Bitmap bitmap = null;
-        try {
-            // Download Image from URL
-            InputStream input = new java.net.URL(imageURL).openStream();
-            // Decode Bitmap
-            bitmap = BitmapFactory.decodeStream(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
 
     @Override
     protected void onPostExecute(Object result){
+        ///Si different de null, Afficher l'image
         if(result != null) img.setImageBitmap((Bitmap)result);    
     }
 
